@@ -141,7 +141,7 @@
           </div>
         </div>
 
-        <div class="sugars-grid" id="ref-grid"></div>
+        <div class="sugar-grid" id="ref-grid"></div>
       </section>
 
       <!-- --- Tab 3: Tréninková Hra (Training Game) --- -->
@@ -153,12 +153,12 @@
       <section id="generator-tab" class="tab-content">
         <div class="generator-layout">
           <!-- Left Settings Panel -->
-          <div class="settings-panel">
-            <h3 data-translate="print_settings_title">Nastavení generátoru karet</h3>
+          <div class="generator-settings">
+            <h2 style="margin-bottom: 1.5rem; font-size: 1.5rem;" data-translate="print_settings_title">Nastavení tiskovin</h2>
 
             <div class="setting-group">
               <label for="gen-q-select" data-translate="deck_version_label">Verze balíčku (Projektivní rovina PG(2,q))</label>
-              <select id="gen-q-select">
+              <select id="gen-q-select" class="select-control">
                 <option value="3" data-translate="ver_q3">Základní (q=3: 13 sacharidů, 13 karet, 4/karta)</option>
                 <option value="4" selected data-translate="ver_q4">Rozšířený (q=4: 21 sacharidů, 21 karet, 5/karta)</option>
                 <option value="5" data-translate="ver_q5">Pokročilý (q=5: 31 sacharidů, 31 karet, 6/karta)</option>
@@ -168,91 +168,87 @@
 
             <div class="setting-group">
               <label for="set-card-shape" data-translate="card_shape_label">Tvar karet</label>
-              <select id="set-card-shape">
+              <select id="set-card-shape" class="select-control">
                 <option value="circle" data-translate="shape_circle">Kulaté (Tradiční Dobble)</option>
                 <option value="square" data-translate="shape_square">Čtvercové (Snazší stříhání)</option>
               </select>
             </div>
 
-            <label class="checkbox-setting">
-              <input type="checkbox" id="set-random-rotation" checked>
-              <div class="checkbox-label-text">
-                <span class="checkbox-title" data-translate="rotate_symbols_label">Náhodně otáčet symboly</span>
-                <span class="checkbox-sub" data-translate="rotate_symbols_sub">Zvyšuje obtížnost otáčením textů a vzorců.</span>
-              </div>
-            </label>
-
-            <label class="checkbox-setting">
-              <input type="checkbox" id="set-guarantee-diff-reps" checked>
-              <div class="checkbox-label-text">
-                <span class="checkbox-title" data-translate="guarantee_diff_label">Vždy odlišná reprezentace</span>
-                <span class="checkbox-sub" data-translate="guarantee_diff_sub">Zaručí, že společný cukr má na dvou kartách jiný formát.</span>
-              </div>
-            </label>
+            <div class="setting-group">
+              <label class="checkbox-control">
+                <input type="checkbox" id="set-random-rotation" checked>
+                <span data-translate="rotate_symbols_label">Náhodně otáčet symboly</span>
+              </label>
+              <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-top: 4px;" data-translate="rotate_symbols_sub">Zvyšuje obtížnost otáčením textů a vzorců.</span>
+            </div>
 
             <div class="setting-group">
-              <label data-translate="active_reps_label">Aktivní reprezentace</label>
-              <div class="reps-checklist" style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem; background: rgba(0,0,0,0.02); padding: 0.75rem; border-radius: 8px;">
-                <label class="checkbox-setting">
+              <label class="checkbox-control">
+                <input type="checkbox" id="set-guarantee-diff-reps" checked>
+                <span data-translate="guarantee_diff_label">Vždy odlišné reprezentace</span>
+              </label>
+              <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-top: 4px;" data-translate="guarantee_diff_sub">Zaručí, že společný cukr má na dvou kartách jiný formát.</span>
+            </div>
+
+            <div class="setting-group">
+              <label style="font-weight: 700; margin-bottom: 0.5rem; display: block;" data-translate="active_reps_label">Aktivní reprezentace</label>
+              <div class="checkbox-list" id="generator-reps-list" style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem; background: rgba(0, 0, 0, 0.02); padding: 0.75rem; border-radius: 8px; border: 1px solid var(--border-color);">
+                <label class="checkbox-control">
                   <input type="checkbox" class="set-rep-toggle" value="0" checked>
-                  <span class="checkbox-title" data-translate="rep_name">Název cukru (jazykový)</span>
+                  <span data-translate="rep_name">Název cukru (jazykový)</span>
                 </label>
-                <label class="checkbox-setting">
+                <label class="checkbox-control">
                   <input type="checkbox" class="set-rep-toggle" value="1" checked>
-                  <span class="checkbox-title" data-translate="rep_code3">3písmenný kód (Glc, Gal...)</span>
+                  <span data-translate="rep_code3">3písmenný kód (Glc, Gal...)</span>
                 </label>
-                <label class="checkbox-setting">
+                <label class="checkbox-control">
                   <input type="checkbox" class="set-rep-toggle" value="2" checked>
-                  <span class="checkbox-title" data-translate="rep_snfg">SNFG Grafický symbol</span>
+                  <span data-translate="rep_snfg">SNFG Grafický symbol</span>
                 </label>
-                <label class="checkbox-setting">
+                <label class="checkbox-control">
                   <input type="checkbox" class="set-rep-toggle" value="3" checked>
-                  <span class="checkbox-title" data-translate="rep_structure2d">2D Strukturní vzorec</span>
+                  <span data-translate="rep_structure2d">2D Strukturní vzorec</span>
                 </label>
-                <label class="checkbox-setting">
+                <label class="checkbox-control">
                   <input type="checkbox" class="set-rep-toggle" value="4" checked>
-                  <span class="checkbox-title" data-translate="rep_structure3d">3D Model (PyMOL)</span>
+                  <span data-translate="rep_structure3d">3D Model (PyMOL)</span>
                 </label>
-                <label class="checkbox-setting">
+                <label class="checkbox-control">
                   <input type="checkbox" class="set-rep-toggle" value="5" checked>
-                  <span class="checkbox-title" data-translate="rep_formula">Chemický vzorec</span>
+                  <span data-translate="rep_formula">Chemický vzorec</span>
                 </label>
-                <label class="checkbox-setting">
+                <label class="checkbox-control">
                   <input type="checkbox" class="set-rep-toggle" value="6">
-                  <span class="checkbox-title" data-translate="rep_smiles">SMILES řetězec</span>
+                  <span data-translate="rep_smiles">SMILES řetězec</span>
                 </label>
               </div>
             </div>
 
-            <label class="checkbox-setting">
-              <input type="checkbox" id="set-show-cheat">
-              <div class="checkbox-label-text">
-                <span class="checkbox-title" data-translate="show_cheat_label">Zobrazit tahák řešení</span>
-                <span class="checkbox-sub" data-translate="show_cheat_sub">Vytiskne v rohu karty seznam cukrů drobným písmem.</span>
-              </div>
-            </label>
+            <div class="setting-group">
+              <label class="checkbox-control">
+                <input type="checkbox" id="set-show-cheat">
+                <span data-translate="show_cheat_label">Zobrazit tahák řešení</span>
+              </label>
+              <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-top: 4px;" data-translate="show_cheat_sub">Vytiskne v rohu karty seznam cukrů drobným písmem.</span>
+            </div>
 
-            <button class="btn btn-primary" id="btn-print-deck">
+            <button class="btn btn-primary" style="width: 100%; margin-top: 1.5rem;" id="btn-print-deck">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
               <span data-translate="btn_print">Tisknout sadu karet</span>
-            </button>
-            
-            <button class="btn btn-secondary" id="btn-regenerate-deck">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
-              <span data-translate="btn_regenerate">Přegenerovat sady</span>
             </button>
           </div>
 
           <!-- Right Cards Preview -->
-          <div class="preview-area">
-            <div class="cards-preview-header">
-              <h2 class="section-title" style="margin-bottom: 0;">
-                <span data-translate="preview_title">Náhled balíčku karet</span>
-                <span id="preview-card-count" style="font-size: 1rem; color: var(--text-muted); font-weight: 600;">(21 karet celkem)</span>
-              </h2>
+          <div class="generator-preview">
+            <div class="generator-preview-title">
+              <h2 style="font-size: 1.5rem; font-weight: 800;" data-translate="preview_title">Náhled karet <span id="preview-card-count" style="font-size: 1rem; color: var(--text-muted); font-weight: 600;">(21 karet celkem)</span></h2>
+              <button class="btn btn-secondary" id="btn-regenerate-deck">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
+                <span data-translate="btn_regenerate">Přegenerovat sady</span>
+              </button>
             </div>
 
-            <div class="cards-grid-preview" id="generator-cards-grid"></div>
+            <div class="cards-grid" id="generator-cards-grid"></div>
           </div>
         </div>
       </section>
