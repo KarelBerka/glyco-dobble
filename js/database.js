@@ -1960,19 +1960,36 @@ function renderSNFGToSVG(snfg, width = 70, height = 70) {
 function renderStructureToSVG(structure, width = "100%", height = "100%") {
   if (!structure || !structure.atoms) return "";
 
-  let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+  let minX = Infinity, maxX = -Infinity;
+  let minY = Infinity, maxY = -Infinity;
+  
   structure.atoms.forEach(atom => {
-    if (atom.x < minX) minX = atom.x;
-    if (atom.x > maxX) maxX = atom.x;
-    if (atom.y < minY) minY = atom.y;
-    if (atom.y > maxY) maxY = atom.y;
+    const cleanLabel = atom.label ? atom.label.replace(/[\u2080-\u2089]/g, m => String.fromCharCode(m.charCodeAt(0) - 0x2080 + 48)) : "";
+    const isAliphaticCarbon = atom.label && /^(CH\d*|H\d*C|C)$/i.test(cleanLabel);
+    const hasVisibleLabel = atom.label && !isAliphaticCarbon;
+    
+    // Calculate padding dynamically to avoid unnecessary empty margin
+    const labelWidth = atom.label ? atom.label.length * 7 : 0;
+    const paddingX = hasVisibleLabel ? Math.max(labelWidth / 2 + 1, 4) : 2;
+    const paddingY = hasVisibleLabel ? 6 : 2;
+    
+    if (atom.x - paddingX < minX) minX = atom.x - paddingX;
+    if (atom.x + paddingX > maxX) maxX = atom.x + paddingX;
+    if (atom.y - paddingY < minY) minY = atom.y - paddingY;
+    if (atom.y + paddingY > maxY) maxY = atom.y + paddingY;
   });
 
-  const margin = 12;
+  const contentW = maxX - minX;
+  const contentH = maxY - minY;
+  
+  const margin = 3; // Tight margin to enlarge the molecule
+  const paddedW = contentW + 2 * margin;
+  const paddedH = contentH + 2 * margin;
+  
   const vbX = minX - margin;
   const vbY = minY - margin;
-  const vbW = (maxX - minX) + 2 * margin;
-  const vbH = (maxY - minY) + 2 * margin;
+  const vbW = paddedW;
+  const vbH = paddedH;
 
   const bondColor = "#000000"; // Solid Wikipedia Black
   const bondWidth = 2.0;       // Delicate skeletal line weight
@@ -2006,19 +2023,23 @@ function renderStructureToSVG(structure, width = "100%", height = "100%") {
 
   structure.atoms.forEach(atom => {
     if (atom.label && atom.label.trim() !== "") {
-      let color = "#000000";
-      if (atom.type === "O") color = "#d32f2f"; // Wikipedia Red
-      if (atom.type === "N") color = "#1976d2"; // Wikipedia Blue
-      if (atom.type === "S") color = "#d97706"; // Wikipedia Gold
-      if (atom.type === "P") color = "#7b1fa2"; // Wikipedia Purple
+      const cleanLabel = atom.label.replace(/[\u2080-\u2089]/g, m => String.fromCharCode(m.charCodeAt(0) - 0x2080 + 48));
+      const isAliphaticCarbon = /^(CH\d*|H\d*C|C)$/i.test(cleanLabel);
+      if (!isAliphaticCarbon) {
+        let color = "#000000";
+        if (atom.type === "O") color = "#d32f2f"; // Wikipedia Red
+        if (atom.type === "N") color = "#1976d2"; // Wikipedia Blue
+        if (atom.type === "S") color = "#d97706"; // Wikipedia Gold
+        if (atom.type === "P") color = "#7b1fa2"; // Wikipedia Purple
 
-      const labelW = atom.label.length * 7;
-      const labelH = 12;
+        const labelW = atom.label.length * 7;
+        const labelH = 12;
 
-      svgContent += `
-        <rect x="${atom.x - labelW/2}" y="${atom.y - labelH/2}" width="${labelW}" height="${labelH * 1.2}" fill="#ffffff" />
-        <text x="${atom.x}" y="${atom.y + 1}" font-family="Arial, Helvetica, sans-serif" font-size="11px" font-weight="normal" fill="${color}" text-anchor="middle" dominant-baseline="middle">${atom.label}</text>
-      `;
+        svgContent += `
+          <rect x="${atom.x - labelW/2}" y="${atom.y - labelH/2 - 1}" width="${labelW}" height="${labelH * 1.3}" fill="#ffffff" />
+          <text x="${atom.x}" y="${atom.y + 1}" font-family="Arial, Helvetica, sans-serif" font-size="11px" font-weight="normal" fill="${color}" text-anchor="middle" dominant-baseline="middle">${atom.label}</text>
+        `;
+      }
     }
   });
 
