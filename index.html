@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GlycoDobble: Cukry & SNFG Atlas</title>
+  <!-- Google Fonts Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header with Glassmorphic Nav -->
+    <header>
+      <div class="nav-content">
+        <div class="logo-group">
+          <a href="../index.html" class="back-portal-link" data-translate="back_to_portal">
+            ← Zpět na Bio-Dobble
+          </a>
+          <a href="#" class="logo">
+            <div class="logo-icon">🍬</div>
+            <span>GlycoDobble</span>
+          </a>
+        </div>
+        
+        <nav class="nav-tabs">
+          <button class="tab-btn active" data-tab="home-tab" data-translate="tab_home">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            Úvod
+          </button>
+          <button class="tab-btn" data-tab="encyclopedia-tab" data-translate="tab_encyclopedia">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+            Encyklopedie
+          </button>
+          <button class="tab-btn" data-tab="game-tab" data-translate="tab_game">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            Tréninková Hra
+          </button>
+          <button class="tab-btn" data-tab="generator-tab" data-translate="tab_generator">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line><line x1="15" y1="3" x2="15" y2="21"></line><line x1="3" y1="9" x2="21" y2="9"></line><line x1="3" y1="15" x2="21" y2="15"></line></svg>
+            Generátor Karet
+          </button>
+        </nav>
+
+        <div class="header-controls">
+          <button class="theme-toggle-btn" id="theme-toggle" title="Změnit barevné téma">
+            <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          </button>
+          <select id="lang-toggle" class="lang-select" title="Language / Jazyk">
+            <option value="cs">CZ</option>
+            <option value="en">EN</option>
+            <option value="de">DE</option>
+            <option value="fr">FR</option>
+          </select>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main>
+      <!-- --- Tab 1: Úvod (Home) --- -->
+      <section id="home-tab" class="tab-content active">
+        <div class="hero-section">
+          <div class="hero-text">
+            <h1 data-translate="hero_title">GlycoDobble: Cukry & SNFG Atlas</h1>
+            <p data-translate="hero_desc">Vítejte v interaktivním generátoru a výukovém trenažéru hry Dobble zaměřeném na glykonomiku a chemii sacharidů. Spojujte strukturní vzorce, SNFG grafické symboly, názvy a zkratky monosacharidů i disacharidů.</p>
+            <div class="hero-buttons">
+              <button class="btn btn-primary" onclick="switchTab('game-tab')" data-translate="hero_btn_play">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                Hrát Hru
+              </button>
+              <button class="btn btn-secondary" onclick="switchTab('generator-tab')" data-translate="hero_btn_print">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line><line x1="3" y1="9" x2="21" y2="9"></line></svg>
+                Tisknout Karty
+              </button>
+            </div>
+          </div>
+          <div class="hero-visual">
+            <div class="floating-cards">
+              <div class="visual-card visual-card-1 dobble-card" id="hero-card-1"></div>
+              <div class="visual-card visual-card-2 dobble-card" id="hero-card-2"></div>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="section-title" data-translate="how_title">Jak hra funguje?</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">📐</div>
+            <h3 data-translate="feat_math_title">Projektivní geometrie</h3>
+            <p data-translate="feat_math_desc">Díky použití projektivních rovin PG(2,q) pro q=3 (13 karet), q=4 (21 karet), q=5 (31 karet) nebo q=7 (57 karet) sdílejí libovolné dvě karty přesně jeden společný sacharid.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🧪</div>
+            <h3 data-translate="feat_meaning_title">SNFG & Významové párování</h3>
+            <p data-translate="feat_meaning_desc">Společný prvek na dvojičce karet se zobrazí v odlišném formátu (např. SNFG symbol na jedné a 2D strukturní vzorec na druhé). Zdokonalte se v rozpoznávání sacharidů!</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🖨️</div>
+            <h3 data-translate="feat_print_title">Tisk a Export</h3>
+            <p data-translate="feat_print_desc">Přizpůsobte si velikost sady (q=3 až q=7), tvar karet (kulaté / čtvercové), rotaci symbolů a vytiskněte si připravený balíček na papír A4.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- --- Tab 2: Encyklopedie (Encyclopedia) --- -->
+      <section id="encyclopedia-tab" class="tab-content">
+        <div class="ref-toolbar">
+          <div class="ref-toolbar-top">
+            <div class="search-input-wrapper">
+              <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <input type="text" class="search-input" id="ref-search" placeholder="Hledat podle názvu, zkratky (Glc, Gal, Neu5Ac...) nebo vzorce...">
+            </div>
+
+            <div class="version-selector">
+              <label for="ref-version-select" data-translate="version_label">Verze balíčku:</label>
+              <select id="ref-version-select" class="version-select">
+                <option value="3" data-translate="ver_q3">Základní (q=3: 13 sacharidů)</option>
+                <option value="4" data-translate="ver_q4">Rozšířený (q=4: 21 sacharidů)</option>
+                <option value="5" data-translate="ver_q5">Pokročilý (q=5: 31 sacharidů)</option>
+                <option value="7" selected data-translate="ver_q7">SNFG Atlas (q=7: 57 sacharidů)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="filter-group" id="ref-filters">
+            <button class="filter-btn active" data-filter="all" data-translate="filter_all">Všechny</button>
+            <button class="filter-btn" data-filter="hexose" data-translate="filter_hexose">Hexosy</button>
+            <button class="filter-btn" data-filter="hexosamine" data-translate="filter_hexosamine">Hexosaminy</button>
+            <button class="filter-btn" data-filter="deoxy" data-translate="filter_deoxy">Deoxysacharidy</button>
+            <button class="filter-btn" data-filter="pentose" data-translate="filter_pentose">Pentosy</button>
+            <button class="filter-btn" data-filter="acidic" data-translate="filter_acidic">Kyseliny (Sialové/Uronové)</button>
+            <button class="filter-btn" data-filter="disaccharide" data-translate="filter_disaccharide">Disacharidy</button>
+            <button class="filter-btn" data-filter="polyol" data-translate="filter_polyol">Polyoly & Ostatní</button>
+          </div>
+        </div>
+
+        <div class="sugars-grid" id="ref-grid"></div>
+      </section>
+
+      <!-- --- Tab 3: Tréninková Hra (Training Game) --- -->
+      <section id="game-tab" class="tab-content">
+        <div class="game-container" id="game-container"></div>
+      </section>
+
+      <!-- --- Tab 4: Generátor Karet (Card Generator) --- -->
+      <section id="generator-tab" class="tab-content">
+        <div class="generator-layout">
+          <!-- Left Settings Panel -->
+          <div class="settings-panel">
+            <h3 data-translate="print_settings_title">Nastavení generátoru karet</h3>
+
+            <div class="setting-group">
+              <label for="gen-q-select" data-translate="deck_version_label">Verze balíčku (Projektivní rovina PG(2,q))</label>
+              <select id="gen-q-select">
+                <option value="3" data-translate="ver_q3">Základní (q=3: 13 sacharidů, 13 karet, 4/karta)</option>
+                <option value="4" selected data-translate="ver_q4">Rozšířený (q=4: 21 sacharidů, 21 karet, 5/karta)</option>
+                <option value="5" data-translate="ver_q5">Pokročilý (q=5: 31 sacharidů, 31 karet, 6/karta)</option>
+                <option value="7" data-translate="ver_q7">SNFG Atlas (q=7: 57 sacharidů, 57 karet, 8/karta)</option>
+              </select>
+            </div>
+
+            <div class="setting-group">
+              <label for="set-card-shape" data-translate="card_shape_label">Tvar karet</label>
+              <select id="set-card-shape">
+                <option value="circle" data-translate="shape_circle">Kulaté (Tradiční Dobble)</option>
+                <option value="square" data-translate="shape_square">Čtvercové (Snazší stříhání)</option>
+              </select>
+            </div>
+
+            <label class="checkbox-setting">
+              <input type="checkbox" id="set-random-rotation" checked>
+              <div class="checkbox-label-text">
+                <span class="checkbox-title" data-translate="rotate_symbols_label">Náhodně otáčet symboly</span>
+                <span class="checkbox-sub" data-translate="rotate_symbols_sub">Zvyšuje obtížnost otáčením textů a vzorců.</span>
+              </div>
+            </label>
+
+            <label class="checkbox-setting">
+              <input type="checkbox" id="set-guarantee-diff-reps" checked>
+              <div class="checkbox-label-text">
+                <span class="checkbox-title" data-translate="guarantee_diff_label">Vždy odlišná reprezentace</span>
+                <span class="checkbox-sub" data-translate="guarantee_diff_sub">Zaručí, že společný cukr má na dvou kartách jiný formát.</span>
+              </div>
+            </label>
+
+            <div class="setting-group">
+              <label data-translate="active_reps_label">Aktivní reprezentace</label>
+              <div class="reps-checklist">
+                <label class="checkbox-setting">
+                  <input type="checkbox" class="set-rep-toggle" value="0" checked>
+                  <span class="checkbox-title" data-translate="rep_name">Název cukru (jazykový)</span>
+                </label>
+                <label class="checkbox-setting">
+                  <input type="checkbox" class="set-rep-toggle" value="1" checked>
+                  <span class="checkbox-title" data-translate="rep_code3">3písmenný kód (Glc, Gal, Man...)</span>
+                </label>
+                <label class="checkbox-setting">
+                  <input type="checkbox" class="set-rep-toggle" value="2" checked>
+                  <span class="checkbox-title" data-translate="rep_snfg">SNFG Grafický symbol</span>
+                </label>
+                <label class="checkbox-setting">
+                  <input type="checkbox" class="set-rep-toggle" value="3" checked>
+                  <span class="checkbox-title" data-translate="rep_structure2d">2D Strukturní vzorec</span>
+                </label>
+                <label class="checkbox-setting">
+                  <input type="checkbox" class="set-rep-toggle" value="4" checked>
+                  <span class="checkbox-title" data-translate="rep_formula">Sumární / Chemický vzorec</span>
+                </label>
+                <label class="checkbox-setting">
+                  <input type="checkbox" class="set-rep-toggle" value="5" checked>
+                  <span class="checkbox-title" data-translate="rep_smiles">SMILES řetězec</span>
+                </label>
+              </div>
+            </div>
+
+            <label class="checkbox-setting">
+              <input type="checkbox" id="set-show-cheat">
+              <div class="checkbox-label-text">
+                <span class="checkbox-title" data-translate="show_cheat_label">Zobrazit tahák řešení</span>
+                <span class="checkbox-sub" data-translate="show_cheat_sub">Vytiskne v rohu karty seznam cukrů drobným písmem.</span>
+              </div>
+            </label>
+
+            <button class="btn btn-primary" id="btn-print-deck">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+              <span data-translate="btn_print">Tisknout sadu karet</span>
+            </button>
+            
+            <button class="btn btn-secondary" id="btn-regenerate-deck">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+              <span data-translate="btn_regenerate">Přegenerovat sady</span>
+            </button>
+          </div>
+
+          <!-- Right Cards Preview -->
+          <div class="preview-area">
+            <div class="cards-preview-header">
+              <h2 class="section-title" style="margin-bottom: 0;">
+                <span data-translate="preview_title">Náhled balíčku karet</span>
+                <span id="preview-card-count" style="font-size: 1rem; color: var(--text-muted); font-weight: 600;">(21 karet celkem)</span>
+              </h2>
+            </div>
+
+            <div class="cards-grid-preview" id="generator-cards-grid"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div data-translate="footer_text">
+        <p>&copy; 2026 GlycoDobble. Autor: <a href="https://karelberka.github.io" target="_blank" rel="noopener" style="color: var(--primary); font-weight: 700; text-decoration: none;">Karel Berka</a>. Vytvořeno pro výuku glykonomiky a biochemie.</p>
+      </div>
+    </footer>
+  </div>
+
+  <!-- JavaScript Modules -->
+  <script src="js/dobble.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
