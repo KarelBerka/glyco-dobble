@@ -146,16 +146,21 @@ class GlycoDobbleGame {
     card.className = "dobble-card";
     const k = cardData.items.length;
     
+    if (k >= 8) {
+      card.style.width = "300px";
+      card.style.height = "300px";
+    }
+
     // Position coordinates depending on number of items (k = q+1)
     let positions = [];
     if (k === 4) {
-      positions = [{x:30,y:30},{x:70,y:30},{x:30,y:70},{x:70,y:70}];
+      positions = [{x:32,y:32},{x:68,y:32},{x:32,y:68},{x:68,y:68}];
     } else if (k === 5) {
-      positions = [{x:50,y:50},{x:27,y:27},{x:73,y:27},{x:27,y:73},{x:73,y:73}];
+      positions = [{x:50,y:50},{x:28,y:28},{x:72,y:28},{x:28,y:72},{x:72,y:72}];
     } else if (k === 6) {
       positions = [{x:50,y:25},{x:75,y:40},{x:75,y:70},{x:50,y:80},{x:25,y:70},{x:25,y:40}];
     } else { // k = 8 (q=7)
-      positions = [{x:50,y:50},{x:50,y:20},{x:78,y:32},{x:82,y:62},{x:62,y:82},{x:38,y:82},{x:18,y:62},{x:22,y:32}];
+      positions = [{x:50,y:50},{x:50,y:20},{x:76,y:32},{x:80,y:62},{x:62,y:82},{x:38,y:82},{x:20,y:62},{x:24,y:32}];
     }
 
     const lang = window.currentLang || "cs";
