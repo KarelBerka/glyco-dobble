@@ -2024,3 +2024,14 @@ function renderStructureToSVG(structure, width = "100%", height = "100%") {
 
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${vbX} ${vbY} ${vbW} ${vbH}" width="${width}" height="${height}" class="item-structure-svg">${svgContent}</svg>`;
 }
+
+/**
+ * Returns sub-array of sugars based on game version.
+ * basic: 13, extended: 21, complete: 57
+ */
+function getSugarsForVersion(version) {
+  if (version === "basic") return SUGARS.slice(0, 13);
+  if (version === "extended") return SUGARS.slice(0, 21);
+  return SUGARS;
+}
+
