@@ -292,16 +292,15 @@ function renderGeneratorPreview(recompute = true) {
       const rot = rotateEnabled ? Math.floor(Math.random() * 360) : 0;
       const scale = 0.85;
 
-      let content = "";
       // 0: Local Name, 1: Code3, 2: SNFG, 3: 2D, 4: 3D, 5: Formula, 6: SMILES
       if (rep === 0) content = `<span class="item-text">${getSugarName(s, lang)}</span>`;
       else if (rep === 1) content = `<span class="item-text">${s.code3}</span>`;
-      else if (rep === 2) content = renderSNFGToSVG(s.snfg, 40, 40);
-      else if (rep === 3) content = renderStructureToSVG(s.structure, 55, 55);
+      else if (rep === 2) content = renderSNFGToSVG(s.snfg, 48, 48);
+      else if (rep === 3) content = renderStructureToSVG(s.structure, 68, 68);
       else if (rep === 4) {
         // Clean filename
         const clean_code = s.code3.toLowerCase().replace("(", "_").replace(")", "_").replace(":", "_").replace("/", "_");
-        content = `<img src="assets/structures/${clean_code}.png" style="width:48px;height:48px;object-fit:contain;" onerror="this.style.display='none'">`;
+        content = `<img src="assets/structures/${clean_code}.png" style="width:62px;height:62px;object-fit:contain;" onerror="this.style.display='none'">`;
       }
       else if (rep === 5) content = `<span class="item-condensed">${s.formula}</span>`;
       else content = `<span class="item-smiles" style="font-size:0.55rem;word-break:break-all;line-height:1.1;display:block;max-width:65px;">${s.smiles}</span>`;
