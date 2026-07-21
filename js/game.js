@@ -176,12 +176,15 @@ class GlycoDobbleGame {
       let classes = "card-item";
 
       if (rep === 0) content = `<span class="item-text">${getSugarName(s, lang)}</span>`;
-      else if (rep === 1) content = `<span class="item-text">${s.engName}</span>`;
-      else if (rep === 2) content = `<span class="item-code3">${s.code3}</span>`;
-      else if (rep === 3) content = renderSNFGToSVG(s.snfg, 40, 40);
-      else if (rep === 4) content = renderStructureToSVG(s.structure, 60, 60);
+      else if (rep === 1) content = `<span class="item-text">${s.code3}</span>`;
+      else if (rep === 2) content = renderSNFGToSVG(s.snfg, 40, 40);
+      else if (rep === 3) content = renderStructureToSVG(s.structure, 60, 60);
+      else if (rep === 4) {
+        const cleanCode = s.code3.toLowerCase().replace("(", "_").replace(")", "_").replace(":", "_").replace("/", "_");
+        content = `<img src="assets/structures/${cleanCode}.png" style="width:48px;height:48px;object-fit:contain;" onerror="this.style.display='none'">`;
+      }
       else if (rep === 5) content = `<span class="item-condensed">${s.formula}</span>`;
-      else content = `<span class="item-smiles">${s.smiles}</span>`;
+      else content = `<span class="item-smiles" style="font-size:0.55rem;word-break:break-all;line-height:1.1;display:block;max-width:65px;">${s.smiles}</span>`;
 
       const itemEl = document.createElement("div");
       itemEl.className = classes;

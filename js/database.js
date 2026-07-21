@@ -1974,8 +1974,8 @@ function renderStructureToSVG(structure, width = "100%", height = "100%") {
   const vbW = (maxX - minX) + 2 * margin;
   const vbH = (maxY - minY) + 2 * margin;
 
-  const bondColor = "#0f172a";
-  const bondWidth = 2.5;
+  const bondColor = "#000000"; // Solid Wikipedia Black
+  const bondWidth = 2.0;       // Delicate skeletal line weight
 
   let svgContent = "";
 
@@ -2006,18 +2006,18 @@ function renderStructureToSVG(structure, width = "100%", height = "100%") {
 
   structure.atoms.forEach(atom => {
     if (atom.label && atom.label.trim() !== "") {
-      let color = "#0f172a";
-      if (atom.type === "O") color = "#e11d48";
-      if (atom.type === "N") color = "#2563eb";
-      if (atom.type === "S") color = "#d97706";
-      if (atom.type === "P") color = "#7c3aed";
+      let color = "#000000";
+      if (atom.type === "O") color = "#d32f2f"; // Wikipedia Red
+      if (atom.type === "N") color = "#1976d2"; // Wikipedia Blue
+      if (atom.type === "S") color = "#d97706"; // Wikipedia Gold
+      if (atom.type === "P") color = "#7b1fa2"; // Wikipedia Purple
 
       const labelW = atom.label.length * 7;
       const labelH = 12;
 
       svgContent += `
-        <rect x="${atom.x - labelW/2}" y="${atom.y - labelH/2}" width="${labelW}" height="${labelH * 1.2}" fill="#ffffff" rx="3" ry="3"/>
-        <text x="${atom.x}" y="${atom.y + 1}" font-family="'Outfit', sans-serif" font-size="11px" font-weight="bold" fill="${color}" text-anchor="middle" dominant-baseline="middle">${atom.label}</text>
+        <rect x="${atom.x - labelW/2}" y="${atom.y - labelH/2}" width="${labelW}" height="${labelH * 1.2}" fill="#ffffff" />
+        <text x="${atom.x}" y="${atom.y + 1}" font-family="Arial, Helvetica, sans-serif" font-size="11px" font-weight="normal" fill="${color}" text-anchor="middle" dominant-baseline="middle">${atom.label}</text>
       `;
     }
   });

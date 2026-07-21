@@ -217,9 +217,30 @@ function renderEncyclopedia(filter, query) {
 function initGenerator() {
   const regenerateBtn = document.getElementById("btn-regenerate-deck");
   const printBtn = document.getElementById("btn-print-deck");
+  const genQSelect = document.getElementById("gen-q-select");
+  const shapeSelect = document.getElementById("set-card-shape");
+  const rotationCheckbox = document.getElementById("set-random-rotation");
+  const diffRepsCheckbox = document.getElementById("set-guarantee-diff-reps");
+  const cheatCheckbox = document.getElementById("set-show-cheat");
 
   if (regenerateBtn) regenerateBtn.addEventListener("click", () => renderGeneratorPreview(true));
   if (printBtn) printBtn.addEventListener("click", () => window.print());
+  
+  if (genQSelect) {
+    genQSelect.addEventListener("change", () => {
+      window.currentGlycoVersion = genQSelect.value === "3" ? "basic" : (genQSelect.value === "7" ? "complete" : "extended");
+      renderGeneratorPreview(true);
+    });
+  }
+
+  if (shapeSelect) shapeSelect.addEventListener("change", () => renderGeneratorPreview(false));
+  if (rotationCheckbox) rotationCheckbox.addEventListener("change", () => renderGeneratorPreview(false));
+  if (diffRepsCheckbox) diffRepsCheckbox.addEventListener("change", () => renderGeneratorPreview(true));
+  if (cheatCheckbox) cheatCheckbox.addEventListener("change", () => renderGeneratorPreview(false));
+
+  document.querySelectorAll(".set-rep-toggle").forEach(cb => {
+    cb.addEventListener("change", () => renderGeneratorPreview(true));
+  });
 }
 
 function renderGeneratorPreview(recompute = true) {
@@ -227,11 +248,20 @@ function renderGeneratorPreview(recompute = true) {
   if (!grid) return;
 
   const currentVer = window.currentGlycoVersion || "extended";
-  const q = currentVer === "basic" ? 3 : (currentVer === "complete" ? 7 : 4);
+  const q = currentVer === "basic" ? 3 : (currentVer === "complete" ? 7 : (currentVer === "advanced" || currentVer === "extended" ? 4 : 5));
+
+  // Gather allowed representations
+  const checkedBoxes = document.querySelectorAll(".set-rep-toggle:checked");
+  let allowedReps = Array.from(checkedBoxes).map(cb => parseInt(cb.value));
+  if (allowedReps.length === 0) {
+    allowedReps = [0, 1, 2, 3, 4, 5];
+    document.querySelectorAll(".set-rep-toggle").forEach((cb, idx) => { if (idx < 6) cb.checked = true; });
+  }
 
   if (recompute || generatedDeck.length === 0) {
     const sugars = getSugarsForVersion(currentVer);
-    generatedDeck = generateDobbleDeck(sugars, q, true);
+    const guaranteeDiff = document.getElementById("set-guarantee-diff-reps")?.checked !== false;
+    generatedDeck = generateDobbleDeck(sugars, q, guaranteeDiff, allowedReps);
   }
 
   grid.innerHTML = "";
@@ -244,6 +274,12 @@ function renderGeneratorPreview(recompute = true) {
   else if (k === 6) positions = [{x:50,y:25},{x:75,y:40},{x:75,y:70},{x:50,y:80},{x:25,y:70},{x:25,y:40}];
   else positions = [{x:50,y:50},{x:50,y:20},{x:78,y:32},{x:82,y:62},{x:62,y:82},{x:38,y:82},{x:18,y:62},{x:22,y:32}];
 
+  const isSquare = document.getElementById("set-card-shape")?.value === "square";
+  const rotateEnabled = document.getElementById("set-random-rotation")?.checked !== false;
+  const showCheat = document.getElementById("set-show-cheat")?.checked === true;
+
+  grid.className = isSquare ? "cards-grid shape-square" : "cards-grid shape-circle";
+
   generatedDeck.forEach((cardData, idx) => {
     const card = document.createElement("div");
     card.className = "dobble-card";
@@ -253,23 +289,34 @@ function renderGeneratorPreview(recompute = true) {
       const pos = positions[posIdx] || {x:50,y:50};
       const s = item.symbol;
       const rep = item.repType;
-      const rot = Math.floor(Math.random() * 360);
+      const rot = rotateEnabled ? Math.floor(Math.random() * 360) : 0;
       const scale = 0.85;
 
       let content = "";
+      // 0: Local Name, 1: Code3, 2: SNFG, 3: 2D, 4: 3D, 5: Formula, 6: SMILES
       if (rep === 0) content = `<span class="item-text">${getSugarName(s, lang)}</span>`;
-      else if (rep === 1) content = `<span class="item-text">${s.engName}</span>`;
-      else if (rep === 2) content = `<span class="item-code3">${s.code3}</span>`;
-      else if (rep === 3) content = renderSNFGToSVG(s.snfg, 40, 40);
-      else if (rep === 4) content = renderStructureToSVG(s.structure, 55, 55);
-      else content = `<span class="item-condensed">${s.formula}</span>`;
+      else if (rep === 1) content = `<span class="item-text">${s.code3}</span>`;
+      else if (rep === 2) content = renderSNFGToSVG(s.snfg, 40, 40);
+      else if (rep === 3) content = renderStructureToSVG(s.structure, 55, 55);
+      else if (rep === 4) {
+        // Clean filename
+        const clean_code = s.code3.toLowerCase().replace("(", "_").replace(")", "_").replace(":", "_").replace("/", "_");
+        content = `<img src="assets/structures/${clean_code}.png" style="width:48px;height:48px;object-fit:contain;" onerror="this.style.display='none'">`;
+      }
+      else if (rep === 5) content = `<span class="item-condensed">${s.formula}</span>`;
+      else content = `<span class="item-smiles" style="font-size:0.55rem;word-break:break-all;line-height:1.1;display:block;max-width:65px;">${s.smiles}</span>`;
 
       itemsHTML += `
-        <div class="card-item" style="--x: ${pos.x}%; --y: ${pos.y}%; --scale: ${scale}; --rot: ${rot}deg;">
+        <div class="card-item" style="--x: ${pos.x}%; --y: ${pos.y}%; --scale: ${scale} ; --rot: ${rot}deg;">
           ${content}
         </div>
       `;
     });
+
+    if (showCheat) {
+      const listNames = cardData.items.map(it => it.symbol.code3).join(", ");
+      itemsHTML += `<span style="position: absolute; top: 8px; left: 8px; font-size: 0.5rem; color: var(--text-muted); max-width: 80%; text-align: left; pointer-events: none;">${listNames}</span>`;
+    }
 
     itemsHTML += `<span style="position: absolute; bottom: 8px; left: 0; right: 0; font-size: 0.6rem; text-align: center; color: var(--text-muted);">Karta ${idx+1}</span>`;
     card.innerHTML = itemsHTML;

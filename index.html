@@ -192,14 +192,14 @@
 
             <div class="setting-group">
               <label data-translate="active_reps_label">Aktivní reprezentace</label>
-              <div class="reps-checklist">
+              <div class="reps-checklist" style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem; background: rgba(0,0,0,0.02); padding: 0.75rem; border-radius: 8px;">
                 <label class="checkbox-setting">
                   <input type="checkbox" class="set-rep-toggle" value="0" checked>
                   <span class="checkbox-title" data-translate="rep_name">Název cukru (jazykový)</span>
                 </label>
                 <label class="checkbox-setting">
                   <input type="checkbox" class="set-rep-toggle" value="1" checked>
-                  <span class="checkbox-title" data-translate="rep_code3">3písmenný kód (Glc, Gal, Man...)</span>
+                  <span class="checkbox-title" data-translate="rep_code3">3písmenný kód (Glc, Gal...)</span>
                 </label>
                 <label class="checkbox-setting">
                   <input type="checkbox" class="set-rep-toggle" value="2" checked>
@@ -211,10 +211,14 @@
                 </label>
                 <label class="checkbox-setting">
                   <input type="checkbox" class="set-rep-toggle" value="4" checked>
-                  <span class="checkbox-title" data-translate="rep_formula">Sumární / Chemický vzorec</span>
+                  <span class="checkbox-title" data-translate="rep_structure3d">3D Model (PyMOL)</span>
                 </label>
                 <label class="checkbox-setting">
                   <input type="checkbox" class="set-rep-toggle" value="5" checked>
+                  <span class="checkbox-title" data-translate="rep_formula">Chemický vzorec</span>
+                </label>
+                <label class="checkbox-setting">
+                  <input type="checkbox" class="set-rep-toggle" value="6">
                   <span class="checkbox-title" data-translate="rep_smiles">SMILES řetězec</span>
                 </label>
               </div>
