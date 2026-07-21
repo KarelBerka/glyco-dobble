@@ -17,7 +17,7 @@ const TRANSLATIONS = {
     ver_basic: "Základní (q=3, 13 cukrů)", ver_extended: "Rozšířený (q=4, 21 cukrů)", ver_complete: "SNFG Atlas (q=7, 57 cukrů)",
     search_placeholder: "Hledat podle názvu, zkratky nebo vzorce...", filter_all: "Všechny",
     btn_print: "Tisknout sadu karet", preview_title: "Náhled karet", btn_regenerate: "Přegenerovat sady",
-    footer_text: "<p>&copy; 2026 Glyco-Dobble. Autor: <a href=\"https://karelberka.github.io\" target=\"_blank\">Karel Berka</a>. Vytvořeno pro výuku glykobiologie.</p>"
+    footer_text: "<p>&copy; 2026 Glyco-Dobble. Součást <a href=\"https://karelberka.github.io/bio-dobble/\" style=\"color: var(--primary); font-weight: 700;\">BioDobble Portal</a>. Autor: <a href=\"https://karelberka.github.io\" target=\"_blank\" rel=\"noopener\" style=\"color: var(--primary); font-weight: 700; text-decoration: none;\">Karel Berka</a>. <a href=\"https://github.com/KarelBerka/glyco-dobble\" target=\"_blank\" rel=\"noopener\" style=\"color: var(--primary); font-weight: 700; text-decoration: none;\">GitHub</a>.</p>"
   },
   en: {
     tab_home: "Home", tab_encyclopedia: "Encyclopedia", tab_game: "Training Game", tab_generator: "Card Generator",
@@ -27,7 +27,7 @@ const TRANSLATIONS = {
     ver_basic: "Basic (q=3, 13 sugars)", ver_extended: "Extended (q=4, 21 sugars)", ver_complete: "SNFG Atlas (q=7, 57 sugars)",
     search_placeholder: "Search by name, code, or formula...", filter_all: "All",
     btn_print: "Print Card Deck", preview_title: "Card Preview", btn_regenerate: "Regenerate Decks",
-    footer_text: "<p>&copy; 2026 Glyco-Dobble. Author: <a href=\"https://karelberka.github.io\" target=\"_blank\">Karel Berka</a>. Built for teaching glycobiology.</p>"
+    footer_text: "<p>&copy; 2026 Glyco-Dobble. Part of <a href=\"https://karelberka.github.io/bio-dobble/\" style=\"color: var(--primary); font-weight: 700;\">BioDobble Portal</a>. Author: <a href=\"https://karelberka.github.io\" target=\"_blank\" rel=\"noopener\" style=\"color: var(--primary); font-weight: 700; text-decoration: none;\">Karel Berka</a>. <a href=\"https://github.com/KarelBerka/glyco-dobble\" target=\"_blank\" rel=\"noopener\" style=\"color: var(--primary); font-weight: 700; text-decoration: none;\">GitHub</a>.</p>"
   },
   de: {
     tab_home: "Startseite", tab_encyclopedia: "Enzyklopädie", tab_game: "Trainingsspiel", tab_generator: "Kartengenerator",
@@ -37,7 +37,7 @@ const TRANSLATIONS = {
     ver_basic: "Basis (q=3, 13 Zucker)", ver_extended: "Erweitert (q=4, 21 Zucker)", ver_complete: "SNFG Atlas (q=7, 57 Zucker)",
     search_placeholder: "Suchen nach Name, Code oder Formel...", filter_all: "Alle",
     btn_print: "Kartensatz drucken", preview_title: "Kartenvorschau", btn_regenerate: "Decks neu generieren",
-    footer_text: "<p>&copy; 2026 Glyco-Dobble. Autor: Karel Berka.</p>"
+    footer_text: "<p>&copy; 2026 Glyco-Dobble. Teil von <a href=\"https://karelberka.github.io/bio-dobble/\" style=\"color: var(--primary); font-weight: 700;\">BioDobble Portal</a>. Autor: <a href=\"https://karelberka.github.io\" target=\"_blank\" rel=\"noopener\" style=\"color: var(--primary); font-weight: 700; text-decoration: none;\">Karel Berka</a>. <a href=\"https://github.com/KarelBerka/glyco-dobble\" target=\"_blank\" rel=\"noopener\" style=\"color: var(--primary); font-weight: 700; text-decoration: none;\">GitHub</a>.</p>"
   },
   fr: {
     tab_home: "Accueil", tab_encyclopedia: "Encyclopédie", tab_game: "Jeu d'entraînement", tab_generator: "Générateur de cartes",
@@ -47,7 +47,7 @@ const TRANSLATIONS = {
     ver_basic: "De base (q=3, 13 sucres)", ver_extended: "Étendu (q=4, 21 sucres)", ver_complete: "SNFG Atlas (q=7, 57 sucres)",
     search_placeholder: "Rechercher par nom, code...", filter_all: "Tous",
     btn_print: "Imprimer le jeu", preview_title: "Aperçu des cartes", btn_regenerate: "Régénérer",
-    footer_text: "<p>&copy; 2026 Glyco-Dobble. Auteur: Karel Berka.</p>"
+    footer_text: "<p>&copy; 2026 Glyco-Dobble. Fait partie de <a href=\"https://karelberka.github.io/bio-dobble/\" style=\"color: var(--primary); font-weight: 700;\">BioDobble Portal</a>. Auteur: <a href=\"https://karelberka.github.io\" target=\"_blank\" rel=\"noopener\" style=\"color: var(--primary); font-weight: 700; text-decoration: none;\">Karel Berka</a>. <a href=\"https://github.com/KarelBerka/glyco-dobble\" target=\"_blank\" rel=\"noopener\" style=\"color: var(--primary); font-weight: 700; text-decoration: none;\">GitHub</a>.</p>"
   }
 };
 
