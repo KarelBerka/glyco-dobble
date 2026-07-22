@@ -61,6 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initLanguage();
   initEncyclopedia();
   initGenerator();
+  renderHeroCards();
 
   activeGameInstance = new window.GlycoDobbleGame("game-container");
   activeGameInstance.init();
@@ -95,6 +96,7 @@ function initVersionSelector() {
       localStorage.setItem("glyco_dobble_version", window.currentGlycoVersion);
 
       renderEncyclopedia("all", "");
+      renderHeroCards();
       if (document.getElementById("generator-tab").classList.contains("active")) {
         renderGeneratorPreview(true);
       }
@@ -113,6 +115,7 @@ function initLanguage() {
       localStorage.setItem("glyco_dobble_lang", window.currentLang);
       translatePage();
       renderEncyclopedia("all", "");
+      renderHeroCards();
       if (activeGameInstance) activeGameInstance.updateLang();
     });
   }
@@ -328,4 +331,60 @@ function renderGeneratorPreview(recompute = true) {
     card.innerHTML = itemsHTML;
     grid.appendChild(card);
   });
+}
+
+/* --- Hero Showcase Cards --- */
+function renderHeroCards() {
+  const container1 = document.getElementById("hero-card-1");
+  const container2 = document.getElementById("hero-card-2");
+  if (!container1 || !container2) return;
+
+  const currentVer = window.currentGlycoVersion || "extended";
+  const pool = getSugarsForVersion(currentVer);
+  const q = currentVer === "basic" ? 3 : (currentVer === "complete" ? 7 : 4);
+  const tempDeck = generateDobbleDeck(pool, q, true, [0, 1, 2, 3, 4]);
+
+  const cardA = tempDeck[0];
+  const cardB = tempDeck[16] || tempDeck[1];
+  const lang = window.currentLang || "cs";
+
+  const k = cardA.items.length;
+  let positions = [];
+  if (k === 4) positions = [{x:30,y:30},{x:70,y:30},{x:30,y:70},{x:70,y:70}];
+  else if (k === 5) positions = [{x:50,y:50},{x:27,y:27},{x:73,y:27},{x:27,y:73},{x:73,y:73}];
+  else if (k === 6) positions = [{x:50,y:25},{x:75,y:40},{x:75,y:70},{x:50,y:80},{x:25,y:70},{x:25,y:40}];
+  else positions = [{x:50,y:50},{x:50,y:20},{x:78,y:32},{x:82,y:62},{x:62,y:82},{x:38,y:82},{x:18,y:62},{x:22,y:32}];
+
+  const buildHeroCardHTML = (cardData) => {
+    let html = "";
+    cardData.items.forEach((item, idx) => {
+      const pos = positions[idx] || { x: 50, y: 50 };
+      const s = item.symbol;
+      const rep = item.repType;
+
+      let content = "";
+      let classes = "card-item";
+
+      if (rep === 0) content = `<span class="item-text">${getSugarName(s, lang)}</span>`;
+      else if (rep === 1) content = `<span class="item-text">${s.code3}</span>`;
+      else if (rep === 2) content = renderSNFGToSVG(s.snfg, 44, 44);
+      else if (rep === 3) content = renderStructureToSVG(s.structure, 56, 56);
+      else if (rep === 4) {
+        const clean_code = s.code3.toLowerCase().replace("(", "_").replace(")", "_").replace(":", "_").replace("/", "_");
+        content = `<img src="assets/structures/${clean_code}.png" style="width:56px;height:56px;object-fit:contain;" onerror="this.style.display='none'">`;
+      } else content = `<span class="item-condensed">${s.formula}</span>`;
+
+      const rot = (idx * 40) % 360;
+
+      html += `
+        <div class="${classes}" style="--x: ${pos.x}%; --y: ${pos.y}%; --scale: 0.85; --rot: ${rot}deg;">
+          ${content}
+        </div>
+      `;
+    });
+    return html;
+  };
+
+  container1.innerHTML = buildHeroCardHTML(cardA);
+  container2.innerHTML = buildHeroCardHTML(cardB);
 }
