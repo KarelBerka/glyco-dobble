@@ -274,9 +274,13 @@ function renderGeneratorPreview(recompute = true) {
   else if (k === 6) positions = [{x:50,y:25},{x:75,y:40},{x:75,y:70},{x:50,y:80},{x:25,y:70},{x:25,y:40}];
   else positions = [{x:50,y:50},{x:50,y:20},{x:78,y:32},{x:82,y:62},{x:62,y:82},{x:38,y:82},{x:18,y:62},{x:22,y:32}];
 
-  const isSquare = document.getElementById("set-card-shape")?.value === "square";
-  const rotateEnabled = document.getElementById("set-random-rotation")?.checked !== false;
-  const showCheat = document.getElementById("set-show-cheat")?.checked === true;
+  const printLayoutSelect = document.getElementById("set-print-layout");
+  const layoutVal = printLayoutSelect ? printLayoutSelect.value : "6";
+  grid.setAttribute("data-layout", layoutVal);
+
+  const isSquare = document.getElementById("set-card-shape") ? document.getElementById("set-card-shape").value === "square" : true;
+  const rotateEnabled = document.getElementById("set-random-rotation") ? document.getElementById("set-random-rotation").checked === true : false;
+  const showCheat = document.getElementById("set-show-cheat") ? document.getElementById("set-show-cheat").checked === true : false;
 
   grid.className = isSquare ? "cards-grid shape-square" : "cards-grid shape-circle";
 
