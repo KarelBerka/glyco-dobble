@@ -97,7 +97,7 @@ class GlycoDobbleGame {
     const currentVer = window.currentGlycoVersion || "extended";
     const q = currentVer === "basic" ? 3 : (currentVer === "complete" ? 7 : 4);
     const pool = getSugarsForVersion(currentVer);
-    this.deck = generateDobbleDeck(pool, q, true, [0, 1, 2, 3, 4, 5]);
+    this.deck = generateDobbleDeck(pool, q, true, [0, 1, 2, 3, 4]);
 
     this.container.innerHTML = `
       <div class="game-header">
@@ -185,7 +185,7 @@ class GlycoDobbleGame {
       else if (rep === 3) content = renderStructureToSVG(s.structure, 68, 68);
       else if (rep === 4) {
         const cleanCode = s.code3.toLowerCase().replace("(", "_").replace(")", "_").replace(":", "_").replace("/", "_");
-        content = `<img src="assets/structures/${cleanCode}.png" style="width:62px;height:62px;object-fit:contain;" onerror="this.style.display='none'">`;
+        content = `<img src="assets/structures/${cleanCode}.png" style="width:84px;height:84px;object-fit:contain;" onerror="this.style.display='none'">`;
       }
       else if (rep === 5) content = `<span class="item-condensed">${s.formula}</span>`;
       else content = `<span class="item-smiles" style="font-size:0.55rem;word-break:break-all;line-height:1.1;display:block;max-width:65px;">${s.smiles}</span>`;

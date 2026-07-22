@@ -150,7 +150,7 @@ function generateDobbleDeck(symbols, q = 4, guaranteeDifferentReps = true, allow
   const k = q + 1;           // symbols per card
 
   if (!allowedReps || allowedReps.length === 0) {
-    allowedReps = [0, 1, 2, 3, 4, 5];
+    allowedReps = [0, 1, 2, 3, 4];
   }
 
   const occurrences = Array.from({ length: n }, () => []);

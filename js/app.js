@@ -190,6 +190,7 @@ function renderEncyclopedia(filter, query) {
   });
 
   filtered.forEach(s => {
+    const clean_code = s.code3.toLowerCase().replace("(", "_").replace(")", "_").replace(":", "_").replace("/", "_");
     const card = document.createElement("div");
     card.className = "sugar-card";
     card.innerHTML = `
@@ -203,6 +204,7 @@ function renderEncyclopedia(filter, query) {
       <div class="sugar-previews">
         <div class="snfg-icon" title="SNFG barevný symbol">${renderSNFGToSVG(s.snfg, 44, 44)}</div>
         <div title="2D Haworthova projekce">${renderStructureToSVG(s.structure, 80, 80)}</div>
+        <div title="3D PyMOL model"><img src="assets/structures/${clean_code}.png" style="width:80px;height:80px;object-fit:contain;" onerror="this.style.display='none'"></div>
       </div>
       <div style="font-size: 0.85rem; color: var(--text-muted);">
         <strong>Vzorec:</strong> ${s.formula}<br>
@@ -296,6 +298,7 @@ function renderGeneratorPreview(recompute = true) {
       const rot = rotateEnabled ? Math.floor(Math.random() * 360) : 0;
       const scale = 0.85;
 
+      let content = "";
       // 0: Local Name, 1: Code3, 2: SNFG, 3: 2D, 4: 3D, 5: Formula, 6: SMILES
       if (rep === 0) content = `<span class="item-text">${getSugarName(s, lang)}</span>`;
       else if (rep === 1) content = `<span class="item-text">${s.code3}</span>`;
@@ -304,7 +307,7 @@ function renderGeneratorPreview(recompute = true) {
       else if (rep === 4) {
         // Clean filename
         const clean_code = s.code3.toLowerCase().replace("(", "_").replace(")", "_").replace(":", "_").replace("/", "_");
-        content = `<img src="assets/structures/${clean_code}.png" style="width:62px;height:62px;object-fit:contain;" onerror="this.style.display='none'">`;
+        content = `<img src="assets/structures/${clean_code}.png" style="width:84px;height:84px;object-fit:contain;" onerror="this.style.display='none'">`;
       }
       else if (rep === 5) content = `<span class="item-condensed">${s.formula}</span>`;
       else content = `<span class="item-smiles" style="font-size:0.55rem;word-break:break-all;line-height:1.1;display:block;max-width:65px;">${s.smiles}</span>`;
